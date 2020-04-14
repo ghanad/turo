@@ -1,25 +1,32 @@
-from PIL import Image
+from PIL import Image, ImageOps
 import PIL.ImageDraw as ImageDraw
+import ports
 
-im = Image.open("cisco3560x.png")
+
+switch_image = Image.open("cisco3560x.png")
 
 
-im_a = Image.new("L", im.size, 0)
-draw = ImageDraw.Draw(im_a)
+port_image = Image.new('RGB',switch_image.size,(255,255,0))
+port_mask = ImageDraw.Draw(port_image)
 
-x_start = im.size[1] * -1
-x_end = 0
 
+# make diagonal
 step = 100
-renge_loop = round(im.size[0]/step)+im.size[1]
-
+x_start = port_image.size[1] * -1
+x_end = 0
+renge_loop = round(port_image.size[0]/step)+port_image.size[1]
 
 for i in range(renge_loop):
-    point1 = ((x_start,0),(x_end,im.size[1]))
-    draw.line(point1, fill=200, width=10)
+    point1 = ((x_start,port_image.size[1]),(x_end,0))
+    port_mask.line(point1, fill=200, width=10)
     x_start += step
     x_end += step
 
-im_a.show()
+port_mask_spare = Image.new("L", port_image.size, 0)
+port_mask_temp = ImageDraw.Draw(port_mask_spare)
+port_mask_temp.polygon(ports.port_geo(1), fill=255)
 
-## https://note.nkmk.me/en/python-pillow-putalpha/
+# im.show()
+switch_image.paste(port_image,(0,0),port_mask_spare)
+
+switch_image.show()
