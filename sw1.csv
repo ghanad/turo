@@ -1,5 +1,5 @@
-1,LAN-MAN,
-2,LAN-MAN,spare
+1,trunk,
+2,trunk,
 3,LAN-MAN,
 4,LAN-MAN,
 5,LAN-MAN,
@@ -21,3 +21,7 @@
 21,LAN-MAN,spare
 22,LAN-MAN,spare
 23,LAN-MAN,spare
+Gi0/1,trunk
+Gi0/2,trunk
+Gi0/3,trunk
+Gi0/4,trunk
