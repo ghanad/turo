@@ -1,6 +1,7 @@
 from PIL import Image, ImageOps
 import PIL.ImageDraw as ImageDraw
 import ports_3560x
+import ports_3560x_trunk
 import vlan_colors
 import csv
 
@@ -24,5 +25,9 @@ for i in switch_port_list:
     port_temp = port1.portShape()
     switch_image.paste(port_temp[0], port1.geo, port_temp[1])
 
+
+port1 = ports_3560x_trunk.Trunk(10)
+port_temp = port1.portShape()
+switch_image.paste(port_temp[0], port1.geo, port_temp[1])
 
 switch_image.show()
