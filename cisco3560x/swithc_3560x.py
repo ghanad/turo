@@ -43,4 +43,4 @@ bg_draw = ImageDraw.Draw(bg)
 
 bg.paste(switch_image,(0,0))
 bg.paste(strpic,(0,h+300))
-switch_image.show()
+bg.show()
