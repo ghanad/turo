@@ -1,9 +1,9 @@
 from PIL import Image, ImageOps
 import PIL.ImageDraw as ImageDraw
 import ports_3560x
+from PIL import ImageFont
 import vlan_colors
 import port_string_png_maker
-from PIL import ImageFont
 
 
 switch_image = Image.open("cisco3560x.png")
