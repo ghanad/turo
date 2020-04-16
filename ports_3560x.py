@@ -82,13 +82,12 @@ class Trunk(Port):
         port_mask_spare = Image.new("L", port_image.size, 0)
         port_mask_temp = ImageDraw.Draw(port_mask_spare)
         
-        if self.number.isnumeric():
             
-            if int(self.number) in range(1,25,2):
-                port1 = ((0, 50), (0, 306), (407, 306), (407, 50), (282, 50), (282, 22), (246, 22), (246, 0), (160, 0), (160, 22), (124, 22), (124, 50))
-            if int(self.number) in range(2,26,2):
-                port1 = ((0, 14), (407, 14), (407, 268), (282, 268), (282, 295), (244, 295), (244, 318), (160, 318), (160, 295), (126, 295), (126, 268), (0, 268))
-        else:
+        if int(self.number) in range(1,25,2):
+            port1 = ((0, 50), (0, 306), (407, 306), (407, 50), (282, 50), (282, 22), (246, 22), (246, 0), (160, 0), (160, 22), (124, 22), (124, 50))
+        if int(self.number) in range(2,26,2):
+            port1 = ((0, 14), (407, 14), (407, 268), (282, 268), (282, 295), (244, 295), (244, 318), (160, 318), (160, 295), (126, 295), (126, 268), (0, 268))
+        if int(self.number) in [25,26,27,28]:
             port1 = ((0,0),(0,300),(450,300),(450,0))
 
         port_mask_temp.polygon(port1, fill=255)
@@ -118,6 +117,14 @@ class Trunk(Port):
                 RPO = 157
                 offset =int(LPO*((temp_number - 2)/2) + RPO)
                 self.geo = (6785 + offset,794-14)
+            if temp_number == 25:
+                self.geo = (12820,863)
+            if temp_number == 26:
+                self.geo = (12820+465,863)
+            if temp_number == 27:
+                self.geo = (12820+930,863)
+            if temp_number == 28:
+                self.geo = (12820+1395,863)
         else:
             if self.number.lower() in ["gi0/1", "gi1/0/1"]:
                 self.geo = (12820,863)

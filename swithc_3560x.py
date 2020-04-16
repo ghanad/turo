@@ -2,6 +2,8 @@ from PIL import Image, ImageOps
 import PIL.ImageDraw as ImageDraw
 import ports_3560x
 import vlan_colors
+import port_string_png_maker
+from PIL import ImageFont
 
 
 switch_image = Image.open("cisco3560x.png")
@@ -32,4 +34,13 @@ for i in trunk_port_list:
     port_temp = port1.portShape()
     switch_image.paste(port_temp[0], port1.geo, port_temp[1])
 
+# port list text
+w,h = switch_image.size
+strpic = port_string_png_maker.stringpic(switch_port_list,(w,400),300)
+
+bg = Image.new('RGB',(w,h+600),'white')
+bg_draw = ImageDraw.Draw(bg)
+
+bg.paste(switch_image,(0,0))
+bg.paste(strpic,(0,h+300))
 switch_image.show()

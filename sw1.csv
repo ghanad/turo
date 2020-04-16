@@ -21,7 +21,7 @@
 21,LAN-MAN,spare
 22,LAN-MAN,spare
 23,LAN-MAN,spare
-Gi0/1,trunk
-Gi0/2,trunk
-Gi0/3,trunk
-Gi0/4,trunk
+25,trunk
+26,trunk
+27,trunk
+28,trunk
