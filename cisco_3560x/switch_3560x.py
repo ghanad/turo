@@ -4,14 +4,20 @@ import ports_3560x
 from PIL import ImageFont
 import vlan_colors
 import port_string_png_maker
+import os
 
 
-switch_image = Image.open("cisco3560x.png")
+def absPath(fileName):
+    dirName = os.path.dirname(os.path.abspath(__file__))
+    tempName1 = fileName
+    return os.path.join(dirName, tempName1)
+
+switch_image = Image.open(absPath('cisco3560x.png'))
 
 # read port list file
-with open('sw1.csv', newline='') as ff:
+with open(absPath('sw1.csv'), newline='') as ff:
     f1 = ff.readlines()
-    switch_port_list = [x.rstrip() for x in f1]
+    switch_port_list = [x.rstrip() for x in f1[1:]]
 
 # seprate access and trunk ports
 trunk_port_list = [x for x in switch_port_list if x.split(',')[1].lower() == 'trunk' ]
