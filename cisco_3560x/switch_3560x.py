@@ -19,6 +19,8 @@ with open(absPath('sw1.csv'), newline='') as ff:
     f1 = ff.readlines()
     switch_port_list = [x.rstrip() for x in f1[1:]]
 
+switch_name = f1[0].rstrip()
+
 # seprate access and trunk ports
 trunk_port_list = [x for x in switch_port_list if x.split(',')[1].lower() == 'trunk' ]
 access_port_list = [x for x in switch_port_list if x.split(',')[1].lower() != 'trunk' ]
