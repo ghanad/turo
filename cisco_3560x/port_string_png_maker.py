@@ -49,9 +49,11 @@ def listAbr(list1,st1=''):
 def stringpic(list2, picsize, fontSize):
     # seprate access and trunk ports
     trunk_port_list = [x for x in list2 if x.split(',')[1].lower() == 'trunk' ]
-    access_port_list = [x for x in list2 if x.split(',')[1].lower() != 'trunk' ]
+    access_port_list = [x for x in list2 if x.split(',')[1].lower() != 'trunk' and x.split(',')[1] != '' ]
+    # print(dictMaker(access_port_list))
     fstring = stringMaker(dictMaker(access_port_list)) + stringMaker(dictMaker(trunk_port_list)) 
     
+    # print(dictMaker(access_port_list))
     text_bg = Image.new('RGB',picsize,'white')
     text_mask = ImageDraw.Draw(text_bg)
     font = ImageFont.truetype('calibri.ttf', fontSize)

@@ -24,12 +24,16 @@ switchName = f1[0].rstrip()
 
 # seprate access and trunk ports
 trunk_port_list = [x for x in switch_port_list if x.split(',')[1].lower() == 'trunk' ]
-access_port_list = [x for x in switch_port_list if x.split(',')[1].lower() != 'trunk' ]
+access_port_list = [x for x in switch_port_list if x.split(',')[1].lower() != 'trunk' and x.split(',')[1] != '' ]
+
 
 for i in access_port_list:
     portNum = int(i.split(',')[0])
     color1 = str(i.split(',')[1].upper())
-    spare_status = str(i.split(',')[2])
+    try:
+        spare_status = str(i.split(',')[2])
+    except:
+        spare_status = False
     if spare_status in ["spare", 1]:
         spare_result = True
     else:
@@ -46,19 +50,21 @@ for i in trunk_port_list:
 # port list text
 sImageW,sImageH = switch_image.size
 sPortH = 600
+portListFontSize = 300
 strpic = port_string_png_maker.stringpic(switch_port_list,(sImageW,sPortH),300)
 
 # swithc Name 
 sNameW = 1400
-sNameFontSize = 430
+sNameFontSize = round(portListFontSize * 1.5)
 switchName = switch_name.sNamePic(switchName,(sNameW,sImageH),sNameFontSize)
 
 # create background 
 bg = Image.new('RGB',(sImageW+sNameW,sImageH+sPortH),'white')
 bg_draw = ImageDraw.Draw(bg)
 
-
+# paste other images
 bg.paste(switch_image,(sNameW,0))
 bg.paste(strpic,(sNameW,sImageH+300))
 bg.paste(switchName,(0,0))
-bg.show()
+# bg.show()
+bg.save('final1.png')
