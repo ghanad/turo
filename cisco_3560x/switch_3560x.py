@@ -4,6 +4,7 @@ import ports_3560x
 from PIL import ImageFont
 import vlan_colors
 import port_string_png_maker
+import switch_name
 import os
 
 
@@ -19,7 +20,7 @@ with open(absPath('sw1.csv'), newline='') as ff:
     f1 = ff.readlines()
     switch_port_list = [x.rstrip() for x in f1[1:]]
 
-switch_name = f1[0].rstrip()
+switchName = f1[0].rstrip()
 
 # seprate access and trunk ports
 trunk_port_list = [x for x in switch_port_list if x.split(',')[1].lower() == 'trunk' ]
@@ -43,12 +44,21 @@ for i in trunk_port_list:
     switch_image.paste(port_temp[0], port1.geo, port_temp[1])
 
 # port list text
-w,h = switch_image.size
-strpic = port_string_png_maker.stringpic(switch_port_list,(w,400),300)
+sImageW,sImageH = switch_image.size
+sPortH = 600
+strpic = port_string_png_maker.stringpic(switch_port_list,(sImageW,sPortH),300)
 
-bg = Image.new('RGB',(w,h+600),'white')
+# swithc Name 
+sNameW = 1400
+sNameFontSize = 430
+switchName = switch_name.sNamePic(switchName,(sNameW,sImageH),sNameFontSize)
+
+# create background 
+bg = Image.new('RGB',(sImageW+sNameW,sImageH+sPortH),'white')
 bg_draw = ImageDraw.Draw(bg)
 
-bg.paste(switch_image,(0,0))
-bg.paste(strpic,(0,h+300))
+
+bg.paste(switch_image,(sNameW,0))
+bg.paste(strpic,(sNameW,sImageH+300))
+bg.paste(switchName,(0,0))
 bg.show()
